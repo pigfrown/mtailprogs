@@ -1,0 +1,17 @@
+const IP /\d+/
+
+counter poo
+
+def gettimestamp {
+	#/(?P<date>\d{8}\w+\d{2}:\d{2}:\d{2})/ {
+	   strptime($1, "20060102 15:04:05")
+	   next
+}
+}
+
+@gettimestamp {
+/(?P<all>\.*)/ {
+	poo++
+}
+}
+
