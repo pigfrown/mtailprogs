@@ -1,11 +1,11 @@
-##def gettimestamp {
-#	/(?P<date>\d{8}\s+\d{2}:\d{2}:\d{2})/ {
-#	   strptime($1, "20060102 15:04:05")
-#	   next
-#}
-#}
+def gettimestamp {
+	/(?P<date>\d{8}\s+\d{2}:\d{2}:\d{2})/ {
+	   strptime($1, "20060102 15:04:05")
+	   next
+}
+}
 
-gauge power by gpuidi
+gauge power by gpuid
 gauge temps by gpuid
 gauge memory by gpuid
 gauge core by gpuid
@@ -15,7 +15,7 @@ gauge core by gpuid
 #Get timestamp means we ignore the "header" lines that
 #are periodically spammed out in to the log
 
-#@gettimestamp {
+@gettimestamp {
 
 /(?P<gpuid>\d{1})\s+(?P<watts>\d+)\s+(?P<temp>\d+)\s+(\d+\s+){4}(?P<memhz>\d+)\s+(?P<corehz>\d+)$/ {
 	power[$gpuid]=$watts
@@ -23,5 +23,5 @@ gauge core by gpuid
 	memory[$gpuid]=$memhz
 	core[$gpuid]=$corehz
 }
-#}
+}
 

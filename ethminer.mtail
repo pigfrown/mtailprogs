@@ -1,0 +1,20 @@
+gauge hashrate
+counter accepted
+counter rejected
+
+def gettimestamp {
+	/(?P<time>\d{2}:\d{2}:\d{2})/ {
+		strptime($1, "15:04:05")
+		next
+}
+}
+
+@gettimestamp {
+/(?P<hr>\d+\.\d+)MH\/s \[A(?P<acpt>\d+)\+\d+:R(?P<rjct>\d+)/ {
+	hashrate=$hr
+	accepted=$acpt
+	rejected=$rjct
+}
+}
+
+
