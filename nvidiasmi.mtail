@@ -1,17 +1,27 @@
-const IP /\d+/
+##def gettimestamp {
+#	/(?P<date>\d{8}\s+\d{2}:\d{2}:\d{2})/ {
+#	   strptime($1, "20060102 15:04:05")
+#	   next
+#}
+#}
 
-counter poo
+gauge power by gpuidi
+gauge temps by gpuid
+gauge memory by gpuid
+gauge core by gpuid
 
-def gettimestamp {
-	#/(?P<date>\d{8}\w+\d{2}:\d{2}:\d{2})/ {
-	   strptime($1, "20060102 15:04:05")
-	   next
-}
-}
 
-@gettimestamp {
-/(?P<all>\.*)/ {
-	poo++
+
+#Get timestamp means we ignore the "header" lines that
+#are periodically spammed out in to the log
+
+#@gettimestamp {
+
+/(?P<gpuid>\d{1})\s+(?P<watts>\d+)\s+(?P<temp>\d+)\s+(\d+\s+){4}(?P<memhz>\d+)\s+(?P<corehz>\d+)$/ {
+	power[$gpuid]=$watts
+	temps[$gpuid]=$temp
+	memory[$gpuid]=$memhz
+	core[$gpuid]=$corehz
 }
-}
+#}
 
