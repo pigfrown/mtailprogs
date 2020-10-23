@@ -1,4 +1,4 @@
 #!/bin/bash
 LOGS=$HOME/logs
-./mtail -progs . -logs $LOGS/nvidia-smi.log
+./mtail -progs nvidiasmi.mtail -logs $LOGS/nvidia-smi.log
 
