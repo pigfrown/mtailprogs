@@ -5,8 +5,8 @@ def gettimestamp {
 }
 }
 
-gauge power by gpuid
-gauge temps by gpuid
+gauge power by gpuid 
+gauge temp by gpuid
 gauge memory by gpuid
 gauge core by gpuid
 gauge rxpci by gpuid
@@ -19,14 +19,14 @@ gauge txpci by gpuid
 
 @gettimestamp {
 
-/(?P<gpuid>\d{1})\s+(?P<watts>\d+)\s+(?P<temp>\d+)\s+(\d+\s+){4}(?P<memhz>\d+)\s+(?P<corehz>\d+)\s+(?P<rxpci>\d+)\s+(?P<txpci>)$/ {
-	power[$gpuid]=$watts
-	temps[$gpuid]=$temp
-	memory[$gpuid]=$memhz
-	core[$gpuid]=$corehz
+#The initial \d{1} seems to be required.. timestamp not working correctly?
+/\d{1}\s+(?P<gpuid>\d{1})\s+(?P<watts>\d+)\s+(?P<temp>\d+)\s+-\s+(\d+\s+){4}(?P<memhz>\d+)\s+(?P<corehz>\d+)\s+(?P<rxpci>\d+)\s+(?P<txpci>\d+).*$/ {
+    power[$gpuid]=$watts
+    temp[$gpuid]=$temp
+    memory[$gpuid]=$memhz
+    core[$gpuid]=$corehz
     rxpci[$gpuid]=$rxpci
     txpci[$gpuid]=$txpci
-
 }
 }
 
