@@ -19,13 +19,13 @@ gauge txpci by gpuid
 
 @gettimestamp {
 
-/(?P<gpuid>\d{1})\s+(?P<watts>\d+)\s+(?P<temp>\d+)\s+(\d+\s+){4}(?P<memhz>\d+)\s+(?P<corehz>\d+)\s+(?<rxpci>\d+)\s+(?<txpci>)$/ {
+/(?P<gpuid>\d{1})\s+(?P<watts>\d+)\s+(?P<temp>\d+)\s+(\d+\s+){4}(?P<memhz>\d+)\s+(?P<corehz>\d+)\s+(?P<rxpci>\d+)\s+(?P<txpci>)$/ {
 	power[$gpuid]=$watts
 	temps[$gpuid]=$temp
 	memory[$gpuid]=$memhz
 	core[$gpuid]=$corehz
-    rxpci[$rxpci]=$rxpci
-    txpci[$txpci]=$txpci
+    rxpci[$gpuid]=$rxpci
+    txpci[$gpuid]=$txpci
 
 }
 }
